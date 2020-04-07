@@ -11,13 +11,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Data
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
+@Table(name="DAY")
 public class Day {
 
     @Id
@@ -27,34 +29,17 @@ public class Day {
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
 
-    @ManyToMany
-    private List<Meal> mealList;
+    @ManyToOne
+    private Breakfast breakfast;
+
+    @ManyToOne
+    private Lunch lunch;
+
+    @ManyToOne
+    private Dinner dinner;
 
     public static Day createDay(DayOfWeek dayOfWeek) {
-        return new Day(null, dayOfWeek, new ArrayList<>());
+        return new Day(null, dayOfWeek, null, null, null );
     }
 
-    public String getBreakfastName() {
-        return mealList.stream()
-                .filter(meal -> MealType.BREAKFAST.equals(meal.getType()))
-                .findAny()
-                .map(Meal::getName)
-                .orElse("");
-    }
-
-    public String getLunchName() {
-        return mealList.stream()
-                .filter(meal -> MealType.LUNCH.equals(meal.getType()))
-                .findAny()
-                .map(Meal::getName)
-                .orElse("");
-    }
-
-    public String getDinnerName() {
-        return mealList.stream()
-                .filter(meal -> MealType.DINNER.equals(meal.getType()))
-                .findAny()
-                .map(Meal::getName)
-                .orElse("");
-    }
 }
