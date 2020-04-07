@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(value = "/meal-planner", method = RequestMethod.GET)
@@ -30,10 +31,25 @@ public class DayController {
 
     @PostMapping("/edit/{id}")
     public String add(@Valid Day day, Model model, @PathVariable(name = "id") Long id) {
+        Optional<Day> optionalDay = dayRepository.findById(id);
 
-        model.addAttribute("day", dayRepository.findById(id));
+        if (optionalDay.isPresent()) {
+            model.addAttribute("day", optionalDay.get());
+        } else {
+            throw new IllegalArgumentException("invalid Day id");
+        }
 
         return "edit";
+    }
+
+    @PostMapping("/save/{id}")
+    public String saveEdit(@Valid Day day, @PathVariable("id") Long id, Model model) {
+        day.setId(id);
+        dayRepository.save(day);
+
+        model.addAttribute("days", dayRepository.findAll());
+
+        return "index";
     }
 
 
