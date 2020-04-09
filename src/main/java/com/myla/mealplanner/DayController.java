@@ -1,6 +1,7 @@
 package com.myla.mealplanner;
 
 import com.myla.mealplanner.entity.Day;
+import com.myla.mealplanner.entity.MealType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +46,11 @@ public class DayController {
     @PostMapping("/save/{id}")
     public String saveEdit(@Valid Day day, @PathVariable("id") Long id, Model model) {
         day.setId(id);
+
+        day.getBreakfast().setMealType(MealType.BREAKFAST);
+        day.getLunch().setMealType(MealType.LUNCH);
+        day.getDinner().setMealType(MealType.DINNER);
+
         dayRepository.save(day);
 
         model.addAttribute("days", dayRepository.findAll());

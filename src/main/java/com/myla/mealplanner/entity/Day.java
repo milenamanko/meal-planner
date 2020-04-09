@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,14 +28,14 @@ public class Day {
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
 
-    @ManyToOne
-    private Breakfast breakfast;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Meal breakfast;
 
-    @ManyToOne
-    private Lunch lunch;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Meal lunch;
 
-    @ManyToOne
-    private Dinner dinner;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private Meal dinner;
 
     public static Day createDay(DayOfWeek dayOfWeek) {
         return new Day(null, dayOfWeek, null, null, null );
