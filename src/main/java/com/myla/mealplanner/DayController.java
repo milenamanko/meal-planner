@@ -1,12 +1,14 @@
 package com.myla.mealplanner;
 
 import com.myla.mealplanner.entity.Day;
+import com.myla.mealplanner.entity.Meal;
 import com.myla.mealplanner.entity.MealType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,8 +46,12 @@ public class DayController {
     }
 
     @PostMapping("/save/{id}")
-    public String saveEdit(@Valid Day day, @PathVariable("id") Long id, Model model) {
+    public String saveEdit(@Valid Day day, BindingResult bindingResult, @PathVariable("id") Long id, Model model) {
         day.setId(id);
+
+        if (bindingResult.hasErrors()) {
+            return "edit";
+        }
 
         day.getBreakfast().setMealType(MealType.BREAKFAST);
         day.getLunch().setMealType(MealType.LUNCH);

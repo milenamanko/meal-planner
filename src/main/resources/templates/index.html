@@ -21,9 +21,9 @@
     <tr>
     <tr th:each="day : ${days}">
         <th scope = "row"><span th:text="${day.dayOfWeek}"></span></th>
-        <td><span th:text="${day.breakfast}"></span></td>
-        <td><span th:text="${day.lunch}"></span></td>
-        <td><span th:text="${day.dinner}"></span></td>
+        <td><span th:text="${day.getMealName(day.breakfast)}"></span></td>
+        <td><span th:text="${day.getMealName(day.lunch)}"></span></td>
+        <td><span th:text="${day.getMealName(day.dinner)}"></span></td>
         <td><a th:href="@{edit/{id}(id=${day.id})}" class="btn btn-dark">Edit</a></td>
     </tr>
     </tbody>

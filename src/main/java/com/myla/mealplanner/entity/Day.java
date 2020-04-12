@@ -12,13 +12,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.validation.Valid;
+import java.util.Optional;
 
 @Data
-@AllArgsConstructor
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
-@Table(name="DAY")
 public class Day {
 
     @Id
@@ -28,17 +28,26 @@ public class Day {
     @Enumerated(EnumType.STRING)
     private DayOfWeek dayOfWeek;
 
+    @Valid
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Meal breakfast;
 
+    @Valid
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Meal lunch;
 
+    @Valid
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Meal dinner;
 
     public static Day createDay(DayOfWeek dayOfWeek) {
         return new Day(null, dayOfWeek, null, null, null );
+    }
+
+    public String getMealName(Meal meal) {
+        return Optional.ofNullable(meal)
+                .map(Meal::getName)
+                .orElse("");
     }
 
 }
