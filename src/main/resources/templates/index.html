@@ -19,7 +19,7 @@
     </thead>
     <tbody>
     <tr>
-    <tr th:each="day : ${days}">
+    <tr th:each="day : ${#lists.sort(days, byDayOfWeek)}">
         <th scope = "row"><span th:text="${day.dayOfWeek}"></span></th>
         <td><span th:text="${day.getMealName(day.breakfast)}"></span></td>
         <td><span th:text="${day.getMealName(day.lunch)}"></span></td>

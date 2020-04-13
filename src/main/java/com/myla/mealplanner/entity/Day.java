@@ -3,6 +3,9 @@ package com.myla.mealplanner.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.build.HashCodeAndEqualsPlugin;
+import org.hibernate.annotations.SortComparator;
+import org.springframework.data.web.SortDefault;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -19,7 +22,7 @@ import java.util.Optional;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Day {
+public class Day{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

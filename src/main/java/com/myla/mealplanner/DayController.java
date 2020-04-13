@@ -1,18 +1,18 @@
 package com.myla.mealplanner;
 
 import com.myla.mealplanner.entity.Day;
-import com.myla.mealplanner.entity.Meal;
+import com.myla.mealplanner.entity.DayOfWeek;
 import com.myla.mealplanner.entity.MealType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import java.util.Comparator;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -27,6 +27,7 @@ public class DayController {
     @GetMapping("/show")
     public String show(Model model) {
         model.addAttribute("days", dayRepository.findAll());
+        model.addAttribute("byDayOfWeek", Comparator.comparing(Day::getDayOfWeek));
 
         return "index";
 
@@ -60,6 +61,7 @@ public class DayController {
         dayRepository.save(day);
 
         model.addAttribute("days", dayRepository.findAll());
+        model.addAttribute("byDayOfWeek", Comparator.comparing(Day::getDayOfWeek));
 
         return "index";
     }
