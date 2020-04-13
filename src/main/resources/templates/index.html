@@ -24,7 +24,7 @@
         <td><span th:text="${day.getMealName(day.breakfast)}"></span></td>
         <td><span th:text="${day.getMealName(day.lunch)}"></span></td>
         <td><span th:text="${day.getMealName(day.dinner)}"></span></td>
-        <td><a th:href="@{edit/{id}(id=${day.id})}" class="btn btn-dark">Edit</a></td>
+        <td><a th:href="@{/meal-planner/edit/{id}(id=${day.id})}" class="btn btn-dark">Edit</a></td>
     </tr>
     </tbody>
 </table>
