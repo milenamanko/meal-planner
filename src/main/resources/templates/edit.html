@@ -19,6 +19,9 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <input type="hidden"  th:field="*{dayOfWeek}">
+                                <input type="hidden"  th:field="*{breakfast.id}">
+                                <input type="hidden"  th:field="*{lunch.id}">
+                                <input type="hidden"  th:field="*{dinner.id}">
 
                                 <input type="text" th:field="*{breakfast.name}" class="form-control" id="breakfast"
                                        placeholder="breakfast">
